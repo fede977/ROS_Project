@@ -1,0 +1,2 @@
+add_gaussian_noise:assessment:dummy_localization
+-DCATKIN_DEVEL_PREFIX=/home/fede/Desktop/Assessment/devel -DCMAKE_INSTALL_PREFIX=/home/fede/Desktop/Assessment/install -G Unix Makefiles

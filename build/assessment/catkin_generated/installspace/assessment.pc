@@ -1,0 +1,8 @@
+prefix=/home/fede/Desktop/Assessment/install
+
+Name: assessment
+Description: Description of assessment
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/fede/Desktop/Assessment/install/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/fede/Desktop/Assessment/devel
+
+Name: add_gaussian_noise
+Description: Description of add_gaussian_noise
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/fede/Desktop/Assessment/devel/lib 
+Requires: 

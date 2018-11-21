@@ -1,0 +1,8 @@
+prefix=/home/fede/Desktop/Assessment/install
+
+Name: dummy_localization
+Description: Description of dummy_localization
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/fede/Desktop/Assessment/install/lib 
+Requires: 
