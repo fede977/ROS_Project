@@ -156,7 +156,7 @@ void mapCallback(nav_msgs::OccupancyGrid msg){
     data = msg.data;
 
     std::vector<double> start = {-4.8, -3.6};
-    std::vector<double> goal = {5.15, 2};
+    std::vector<double> goal = {-2, -2};
     Astar(start, goal);
 }
 

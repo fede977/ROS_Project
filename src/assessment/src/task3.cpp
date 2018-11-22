@@ -9,10 +9,10 @@
 #include "t2.h"
 
 ros::Publisher rviz;
-std::vector<Node*> path;
 std::vector<geometry_msgs::Point> points;
 nav_msgs::Odometry actualPos;
-int xVel = 0, zVel = 0;
+geometry_msgs::Point goal;
+
 
 double euclid(geometry_msgs::Point goal, nav_msgs::Odometry actualPos){
 
@@ -23,44 +23,50 @@ double euclid(geometry_msgs::Point goal, nav_msgs::Odometry actualPos){
         distance = sqrt(distance);
 
     return distance;
-
 }
 
-double toEulerAngle(float x, float y, float z, float w){
-    double roll;
+double toEulerAngle(double x, double y, double z, double w){
+    double yaw;
 
-    double sin_cosp = 2.0 * (w * x + y * z);
-    double cos_cosp = 1.0 - 2.0 * (x * x + y * y);
-    roll = atan2(sin_cosp, cos_cosp);
-
-    
-
+    double sin_cosp = 2.0 * (w * z + y * x);
+    double cos_cosp = 1.0 - 2.0 * (z * z + y * y);
+    yaw = atan2(sin_cosp, cos_cosp);
+    return yaw;
 }
+
 
 void MoveRobot(double distTollerance){
     geometry_msgs::Twist mv;
-    tf::Pose pose;
-    tf::poseMsgToTF(actualPos.pose.pose, pose);
-    double yaw_angle = tf::getYaw(pose.getRotation());
     for(int i = points.size()-2; i>0; i--){
-        geometry_msgs::Point goal = points[i];
+        goal = points[i];
+    
         std::cout << goal.x << " , " << goal.y<<std::endl;
-        ros::Rate loop(2.0);
-        do{
-            //velocity x-axis
-            mv.linear.x = 1.5 * euclid(goal, actualPos);
-
-            //velocity angular
-            mv.angular.z = 0.5 * (atan2(goal.y-actualPos.pose.pose.position.y, goal.x-actualPos.pose.pose.position.x))-toEulerAngle(actualPos.pose.pose.orientation.x,actualPos.pose.pose.orientation.y,actualPos.pose.pose.orientation.z,actualPos.pose.pose.orientation.w);
+    
+        if(euclid(goal,actualPos)>=distTollerance){
+            double theta, angx, angy, goal_angle;
+            angx = goal.x - actualPos.pose.pose.position.x;
+            angy = goal.y - actualPos.pose.pose.position.y;
+            theta = toEulerAngle(actualPos.pose.pose.orientation.x,actualPos.pose.pose.orientation.y,actualPos.pose.pose.orientation.z,actualPos.pose.pose.orientation.w);
+            goal_angle = atan2(angy,angx);
+            if(abs(theta-goal_angle)>0.05){
+                //velocity angular
+                mv.angular.x = 0.0;
+                mv.angular.y = 0.0;
+                mv.angular.z = 4 * (goal_angle-theta);
+            }else{
+                //velocity x-axis
+                mv.linear.x = 1.5 * euclid(goal,actualPos);
+                mv.linear.y = 0.0;
+                mv.linear.z = 0.0;
+            }   
             rviz.publish(mv);
-
-            ros::spinOnce();
-            loop.sleep();
-        }while(euclid(goal,actualPos)>distTollerance);
-        std::cout << "end move" << std::endl;
-        mv.linear.x = 0;
-        mv.angular.z = 0;
-        rviz.publish(mv);
+            
+        }else{
+            std::cout << "end move" << std::endl;
+            mv.linear.x = 0.0;
+            mv.angular.z = 0.0;
+            rviz.publish(mv);
+        }
     }
 }
 
@@ -80,13 +86,15 @@ int main(int argc, char**argv){
     
     ros::Subscriber p = n.subscribe("/visPath", 10, &getPath);
     ros::spinOnce();
+    ros::Subscriber pose = n.subscribe("/base_pose_ground_truth", 10, &getPos);
     rviz = n.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
-    ros::Rate r(1.0);
+    ros::Rate r(100.0);
     while(ros::ok()){
-        ros::Subscriber pose = n.subscribe("/base_pose_ground_truth", 10, &getPos);
-        MoveRobot(0.1);
+
+        MoveRobot(0.01);
         ros::spinOnce();
         r.sleep();
+        
     }
     return 0;
 }
