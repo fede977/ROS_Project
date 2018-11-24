@@ -18,6 +18,8 @@ ros::Publisher rviz;
 
 
 std::vector<Node*> path;
+std::vector<double> goal;
+std::vector<double> start;
 
 bool checkNode(Node *node){
     int index = node->x + info.width * node->y;
@@ -154,15 +156,14 @@ void mapCallback(nav_msgs::OccupancyGrid msg){
     header = msg.header;
     info = msg.info;
     data = msg.data;
-
-    std::vector<double> start = {-4.8, -3.6};
-    std::vector<double> goal = {-2, -2};
     Astar(start, goal);
 }
 
 int main(int argc, char **argv){
     ros::init(argc, argv, "t2");
     ros::NodeHandle n;
+    n.getParam("robot_start", start);
+    n.getParam("goal1", goal);
     ros::Subscriber Map = n.subscribe("/map", 10, &mapCallback);
     ros::spinOnce();
     ros::Publisher rviz = n.advertise<visualization_msgs::Marker>("/visPath", 20);

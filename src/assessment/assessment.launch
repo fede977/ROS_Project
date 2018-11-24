@@ -11,7 +11,7 @@
   <node pkg = "assessment" type = "task1" name = "task1" respawn = "true" output = "screen"/>
   <node pkg = "assessment" type = "goals" name = "goals" respawn = "true"/>
   <node pkg = "assessment" type = "t2" name = "t2" respawn = "true" output = "screen"/>
-  <node pkg = "assessment" type = "task3" name = "task3" respawn = "true" output = "screen"/>
+  <!-- <node pkg = "assessment" type = "task3" name = "task3" respawn = "true" output = "screen"/> -->
   <!-- <node name="dummy_localization" pkg="dummy_localization" type="dummy_localization"/>  -->
   <node name="dummy_localization" pkg="dummy_localization" type="dummy_localization.py"/>  
   <node name="add_gaussian_noise" pkg="add_gaussian_noise" type="addGaussianNoise.py"/>
