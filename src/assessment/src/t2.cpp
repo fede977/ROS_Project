@@ -16,13 +16,15 @@ nav_msgs::MapMetaData info;
 std::vector<signed char> data;
 ros::Publisher rviz;
 
-
+int rob = 4;
+int** grid;
 std::vector<Node*> path;
 std::vector<double> goal;
 std::vector<double> start;
 
+
 bool checkNode(Node *node){
-    int index = node->x + info.width * node->y;
+/*     int index = node->x + info.width * node->y;
 
     if(index > data.size() || index < 0){
         std::cerr << "Index out of bounds!\n";
@@ -32,7 +34,20 @@ bool checkNode(Node *node){
         return false;
     }else if(data[index] == 0){
         return true;
+    } */
+    
+    if((node->x - rob)<0 || (node->x + rob)>=info.width || (node->y - rob) < 0 || (node->y + rob) >= info.height){
+        return false;
     }
+
+    for(int x = node->x-rob; x<= node->x+rob; x++){
+        for(int y = node->y-rob; y<= node->y+rob; y++){
+            if(grid[x][y] != 0){
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 double euclideanDist(Node *a, Node *b){
@@ -156,6 +171,17 @@ void mapCallback(nav_msgs::OccupancyGrid msg){
     header = msg.header;
     info = msg.info;
     data = msg.data;
+
+    grid = new int*[info.width];
+    for(int i = 0; i<info.width; i++){
+        grid[i] = new int[info.height];
+    }
+
+    for(int x = 0; x<info.width-1; x++){
+        for(int y = 0; y<info.height-1; y++){
+            grid[x][y] = data[x+info.width*y];
+        }
+    }
     Astar(start, goal);
 }
 
@@ -163,7 +189,7 @@ int main(int argc, char **argv){
     ros::init(argc, argv, "t2");
     ros::NodeHandle n;
     n.getParam("robot_start", start);
-    n.getParam("goal1", goal);
+    n.getParam("goal4", goal);
     ros::Subscriber Map = n.subscribe("/map", 10, &mapCallback);
     ros::spinOnce();
     ros::Publisher rviz = n.advertise<visualization_msgs::Marker>("/visPath", 20);

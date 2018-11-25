@@ -58,12 +58,12 @@ void MoveRobot(double distTollerance){
         }   
         rviz.publish(mv);
         
-    }else{
+    }/* else{
         std::cout << "end move" << std::endl;
         mv.linear.x = 0.0;
         mv.angular.z = 0.0;
         rviz.publish(mv);
-    }
+    } */
 }
 
 void getPath(visualization_msgs::Marker msg){
@@ -89,7 +89,7 @@ int main(int argc, char**argv){
     ros::spinOnce();
     ros::Subscriber pose = n.subscribe("/base_pose_ground_truth", 10, &getPos);
     rviz = n.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
-    ros::Rate r(100.0);
+    ros::Rate r(1000.0);
 
     while(ros::ok()){
         std::cout<<goal.x <<std::endl;
