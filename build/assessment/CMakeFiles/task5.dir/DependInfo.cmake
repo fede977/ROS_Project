@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/fede/Desktop/Assessment/src/assessment/src/goals.cpp" "/home/fede/Desktop/Assessment/build/assessment/CMakeFiles/goals.dir/src/goals.cpp.o"
+  "/home/fede/Desktop/Assessment/src/assessment/src/task5.cpp" "/home/fede/Desktop/Assessment/build/assessment/CMakeFiles/task5.dir/src/task5.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -20,6 +20,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/opt/ros/melodic/include"
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/opencv"
+  "/usr/local/include/opencv4"
   )
 
 # Targets to which this target links.

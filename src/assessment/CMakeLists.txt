@@ -6,9 +6,15 @@ find_package(catkin REQUIRED COMPONENTS
     std_msgs
     geometry_msgs
     tf
+    sensor_msgs
+    cv_bridge
+    image_transport
 )
+find_package(OpenCV REQUIRED)
+
 catkin_package()
 include_directories(${catkin_INCLUDE_DIRS})
+
 
 add_executable(task1 src/task1.cpp)
 target_link_libraries(task1 ${catkin_LIBRARIES})
@@ -24,3 +30,6 @@ target_link_libraries(task3 ${catkin_LIBRARIES})
 
 add_executable(t3 src/t3)
 target_link_libraries(t3 ${catkin_LIBRARIES})
+
+add_executable(task5 src/task5)
+target_link_libraries(task5 ${catkin_LIBRARIES} ${OpenCV_LIBS})

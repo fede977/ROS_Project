@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+assessment/CMakeFiles/task5.dir/rule:
+	cd /home/fede/Desktop/Assessment/build && $(MAKE) -f CMakeFiles/Makefile2 assessment/CMakeFiles/task5.dir/rule
+.PHONY : assessment/CMakeFiles/task5.dir/rule
+
+# Convenience name for target.
+task5: assessment/CMakeFiles/task5.dir/rule
+
+.PHONY : task5
+
+# fast build rule for target.
+task5/fast:
+	cd /home/fede/Desktop/Assessment/build && $(MAKE) -f assessment/CMakeFiles/task5.dir/build.make assessment/CMakeFiles/task5.dir/build
+.PHONY : task5/fast
+
+# Convenience name for target.
 assessment/CMakeFiles/task3.dir/rule:
 	cd /home/fede/Desktop/Assessment/build && $(MAKE) -f CMakeFiles/Makefile2 assessment/CMakeFiles/task3.dir/rule
 .PHONY : assessment/CMakeFiles/task3.dir/rule
@@ -977,6 +992,33 @@ src/task3.cpp.s:
 	cd /home/fede/Desktop/Assessment/build && $(MAKE) -f assessment/CMakeFiles/task3.dir/build.make assessment/CMakeFiles/task3.dir/src/task3.cpp.s
 .PHONY : src/task3.cpp.s
 
+src/task5.o: src/task5.cpp.o
+
+.PHONY : src/task5.o
+
+# target to build an object file
+src/task5.cpp.o:
+	cd /home/fede/Desktop/Assessment/build && $(MAKE) -f assessment/CMakeFiles/task5.dir/build.make assessment/CMakeFiles/task5.dir/src/task5.cpp.o
+.PHONY : src/task5.cpp.o
+
+src/task5.i: src/task5.cpp.i
+
+.PHONY : src/task5.i
+
+# target to preprocess a source file
+src/task5.cpp.i:
+	cd /home/fede/Desktop/Assessment/build && $(MAKE) -f assessment/CMakeFiles/task5.dir/build.make assessment/CMakeFiles/task5.dir/src/task5.cpp.i
+.PHONY : src/task5.cpp.i
+
+src/task5.s: src/task5.cpp.s
+
+.PHONY : src/task5.s
+
+# target to generate assembly for a file
+src/task5.cpp.s:
+	cd /home/fede/Desktop/Assessment/build && $(MAKE) -f assessment/CMakeFiles/task5.dir/build.make assessment/CMakeFiles/task5.dir/src/task5.cpp.s
+.PHONY : src/task5.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -985,6 +1027,7 @@ help:
 	@echo "... depend"
 	@echo "... install"
 	@echo "... edit_cache"
+	@echo "... task5"
 	@echo "... task3"
 	@echo "... list_install_components"
 	@echo "... goals"
@@ -1050,6 +1093,9 @@ help:
 	@echo "... src/task3.o"
 	@echo "... src/task3.i"
 	@echo "... src/task3.s"
+	@echo "... src/task5.o"
+	@echo "... src/task5.i"
+	@echo "... src/task5.s"
 .PHONY : help
 
 

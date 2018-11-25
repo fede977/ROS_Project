@@ -23,8 +23,8 @@ void actualPos(nav_msgs::Odometry odom){
     mark.pose.position.y = odom.pose.pose.position.y;
     mark.pose.orientation = odom.pose.pose.orientation;
     mark.scale.x = 0.5;
-    mark.scale.y = 0.5;
-    mark.scale.z = 0.5;
+    mark.scale.y = 0.2;
+    mark.scale.z = 0.1;
     mark.color.r = 255.0;
     mark.color.a = 1.0;
 

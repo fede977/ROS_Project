@@ -350,6 +350,19 @@ std_msgs_generate_messages_py/fast:
 .PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named task5
+
+# Build rule for target.
+task5: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 task5
+.PHONY : task5
+
+# fast build rule for target.
+task5/fast:
+	$(MAKE) -f assessment/CMakeFiles/task5.dir/build.make assessment/CMakeFiles/task5.dir/build
+.PHONY : task5/fast
+
+#=============================================================================
 # Target rules for targets named task3
 
 # Build rule for target.
@@ -961,6 +974,7 @@ help:
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... task5"
 	@echo "... task3"
 	@echo "... goals"
 	@echo "... task1"
